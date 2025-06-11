@@ -7,7 +7,7 @@ import (
 	"github.com/DATA-DOG/go-sqlmock"
 	"github.com/google/uuid"
 
-	"myapp/cmd/resource/book"
+	"myapp/api/resource/book"
 	mockDB "myapp/mock/db"
 	testUtil "myapp/util/test"
 )
