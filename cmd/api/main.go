@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io"
 	"log"
+	"myapp/cmd/api/router"
 	"myapp/config"
 	"net/http"
 )
@@ -11,12 +12,11 @@ import (
 func main() {
 	c := config.New()
 
-	mux := http.NewServeMux()
-	mux.HandleFunc("/hello", hello)
+	r := router.New()
 
 	s := &http.Server{
 		Addr:         fmt.Sprintf(":%d", c.Server.Port),
-		Handler:      mux,
+		Handler:      r,
 		ReadTimeout:  c.Server.TimeoutRead,
 		WriteTimeout: c.Server.TimeoutWrite,
 		IdleTimeout:  c.Server.TimeoutIdle,
