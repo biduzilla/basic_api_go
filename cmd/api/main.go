@@ -6,6 +6,8 @@ import (
 	"log"
 	"net/http"
 
+	validatorUil "myapp/util/validator"
+
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	gormlogger "gorm.io/gorm/logger"
@@ -30,6 +32,7 @@ const fmtDBString = "host=%s user=%s password=%s dbname=%s port=%d sslmode=disab
 // @basePath   /v1
 func main() {
 	c := config.New()
+	v := validatorUil.New()
 
 	var logLevel gormlogger.LogLevel
 	if c.DB.Debug {
@@ -45,7 +48,7 @@ func main() {
 		return
 	}
 
-	r := router.New(db)
+	r := router.New(db, v)
 	s := &http.Server{
 		Addr:         fmt.Sprintf(":%d", c.Server.Port),
 		Handler:      r,
